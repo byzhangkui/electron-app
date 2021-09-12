@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNEXT", 
+    "module": "ESNext",
+    "lib": ["es6","dom"], 
+    "jsx": "react",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,         
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "webpack.config.ts"
+  ]
+}
