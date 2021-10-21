@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { IPCEvent } from '../common/event';
+import { IPCEvent } from "../common/event";
 
-const add = () => {
-  console.log('add');
+declare global {
+  interface Window {
+    api: {
+      add(i: number): number;
+    };
+  }
 }
 
 const MainWindow = () => {
+  const [count, setCount] = useState(0);
+  const add = async () => {
+    const newCount = await window.api.add(count);
+    setCount(newCount);
+  };
+
   return (
     <div>
-      <div>hello</div>
+      <div>{count}</div>
       <button onClick={add}>add</button>
-  </div>
+    </div>
   );
 };
 
-const appContainer = document.createElement('div');
+const appContainer = document.createElement("div");
 document.body.appendChild(appContainer);
 
 ReactDOM.render(<MainWindow />, appContainer);

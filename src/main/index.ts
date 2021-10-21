@@ -1,25 +1,26 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
-import path from 'path';
-import { IPCEvent } from '../common/event';
-import { getUrl } from './getUrl';
+import { app, BrowserWindow, ipcMain } from "electron";
+import path from "path";
+import { IPCEvent } from "../common/event";
+import { getUrl } from "./getUrl";
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, './preload.ts'),
-    }
+      preload: path.join(__dirname, "./preload.js"),
+    },
   });
 
-  win.loadURL(getUrl('dist/index.html'));
+  win.loadURL(getUrl("dist/index.html"));
 }
 
 app.whenReady().then(() => {
   createWindow();
 
-  ipcMain.on(IPCEvent.Add, (event, ...args) => {
-    console.log(`IPCEvent.Add ${JSON.stringify(event)}`);
-
+  ipcMain.handle(IPCEvent.Add, (event, ...args) => {
+    const i = args[0];
+    console.log(`IPCEvent.Add ${args}`);
+    return i + 1;
   });
 });
